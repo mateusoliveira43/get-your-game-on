@@ -1,69 +1,101 @@
+#!/bin/bash
+
+BOLD="\033[1m"
+END="\033[0m"
+
+# GREEN="\033[92m"
+# INSTALLED_APPS=0
+# CONFIGURED_APPS=0
+# check_installation() {
+#     if $1 --version &>/dev/null; then
+#         printf "\n$GREEN$1$END is already installed, skipping it's installation\n"
+#     else
+#         install $1
+#     fi
+# }
+# install() {
+#     printf "\n$GREEN$1$END is not installed\nInstalling $GREEN$1$END...\n\n"
+#     # check if istallation was successfull : return 0 or 1
+#     printf "\nSuccessfully installed $GREEN$1$END\n"
+#     INSTALLED_APPS+=1
+# }
+# printf "\nInstalled $INSTALLED_APPS apps!\n" # format message
+
+printf "\n${BOLD}Get your game on!$END\n\n"
+
+if [ $# -eq 0 ]; then
+    echo "So let's duel!"
+
+    sudo passwd root
+    sudo apt update -y
+    sudo apt upgrade -y
+
+    # Mint
+    sudo rm /etc/apt/preferences.d/nosnap.pref
+
+    sudo apt install snapd
+
+    sudo apt install zsh -y
+    chsh -s $(which zsh)
+
+    sudo apt install curl
+
+    sudo apt remove docker docker-engine docker.io containerd runc
+    sudo apt install apt-transport-https ca-certificates gnupg-agent software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    # sudo apt-key fingerprint 0EBFCD88
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" # change on update
+    sudo apt update -y
+    sudo apt install docker-ce docker-ce-cli containerd.io
+    # sudo docker run hello-world
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    newgrp docker
+
+    reboot
+fi
+
+echo "Actually I wasn't done yet..."
+
 sudo apt update -y
 sudo apt upgrade -y
 
-# vim
-sudo apt install vim -y
+# Mint : setup colors
 
-# chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O google_chrome.deb
-sudo dpkg -i google_chrome.deb
+# Firefox : setup colors, favorites, ... https://support.mozilla.org/en-US/kb/recovering-important-data-from-an-old-profile
 
-# git
 sudo apt install git -y
+git config --global user.name "Mateus Oliveira"
+git config --global user.email "matews1943@gmail.com"
 
-# zsh
-sudo apt install zsh -y
-
-# ohmyzsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+sudo apt install fonts-powerline
+sed -i '0,/ZSH_THEME="robbyrussell"/s//ZSH_THEME="powerlevel9k/powerlevel9k"\nPOWERLEVEL9K_SHORTEN_DIR_LENGTH=2\nPOWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir virtualenv vcs)\nPOWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs)/' ~/.zshrc
+sed -i '0,/plugins=(git)/s//plugins=(\ngit\nzsh-syntax-highlighting\nzsh-autosuggestions\n)/' ~/.zshrc
+source ~/.zshrc
+sed -i '0,/CURRENT_BG=''/s//CURRENT_BG=''\n\techo "\\n ➜ ";/' ~/.oh-my-zsh/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
+source ~/.oh-my-zsh/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
 
-# pip
+sudo snap install --classic code
+git clone https://gist.github.com/e3a65de07c679daf4c83569a2087e276.git ~/vscode-setup-folder
+while read extension; do
+  code --install-extension $extension
+done <~/vscode-setup-folder/extensions.txt
+mv ~/vscode-setup-folder/settings.json ~/.config/Code/User/settings.json
+mv ~/vscode-setup-folder/keybinds.json ~/.config/Code/User/keybinds.json
+rm -rf ~/vscode-setup-folder
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.28.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+# docker-compose --version
+
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - # change on update
+sudo apt install nodejs
+
 sudo apt install python3-pip
-pip install --upgrade pip
+pip install -U pip
 
-# pyenv
-sudo apt-get update; sudo apt-get install --no-install-recommends make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-
-curl https://pyenv.run | bash
-
-# libpq-dev (dependencia do psycopg)
-sudo apt-get install libpq-dev -y
-
-# python-dev (dependencia do psycopg)
-sudo apt-get install python-dev python3-dev -y
-
-# snap (precisa reiniciar após a instalação)
-sudo rm /etc/apt/preferences.d/nosnap.pref
-sudo apt update
-sudo apt install snapd
-
-# spotify
-sudo snap install spotify
-
-# pycharm
-sudo snap install pycharm-community --classic
-
-# postman
-sudo snap install postman
-
-# dbeaver
-sudo snap install dbeaver-ce
-
-# sublime
-sudo snap install sublime-text --classic
-# instalar package control https://packagecontrol.io/installation
-
-# insomnia
-sudo snap install insomnia
-
-# mongodb client
-sudo snap install robo3t-snap
-
-# vpnc
-sudo apt install vpnc
-
-# remmina (rdp client)
-sudo snap install remmina
-
-# flameshot (a better screenshot software)
-sudo snap install flameshot
+printf "\n${BOLD}That's game!$END\n"

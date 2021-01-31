@@ -1,35 +1,68 @@
+# Get Your Game On
+
+Script to install and configure my Linux Mint environment.
 
 
-# Fast Mint Setup
 
-Checklist para preparação rápida do meu ambiente de desenvolvimento Python no mint e outras distros debian-like. Testado no mint 19.3.
+## Table of Contents
 
-O script `setup.sh` contém comandos para a instalação dos seguintes softwares:
-- Vim
-- Chrome
-- Git
-- Zsh
-- OhMyZsh
-- pip
-- pyenv
+- [Arquivo README em Português](README_PT.md)
+- [Tasks](#Tasks)
+- [Usage](#Usage)
+- [About](#About)
+
+
+
+## Tasks
+
+- [ ] ask Cesar about License
+- [ ] find out how to configure Mint and Firefox from CLI
+- [ ] write motivation behind the script
+- [ ] escrever README em português
+- [ ] write the script in Python and add features
+- [ ] run the script without downloading it previously (like ohmyzsh command)
+- [ ] make script continue after system reboot
+- [ ] add more softwares: Inkscape, Insomnia...
+
+
+
+## Usage
+
+It is needed to run `setup.sh` script two times. The first time, it will reboot the machine after installing and configuring what can be done without a system reboot. At the second time, it will install what missed in the first step.
+
+Run the following commands in Linux's Terminal.
+
+For the first time, run
+```
+bash ./setup.sh
+```
+
+For the second time, run
+```
+bash ./setup.sh draw
+```
+or with any argument.
+
+After this, you can remove the script from your machine.
+
+
+
+## about
+
+Original work and idea from @csmaniottojr
+
+The script will install and configure the following softwares:
+<!-- - Linux Mint
+- FireFox -->
 - snap
-- Spotify
-- PyCharm
-- DBeaver
-- Postman
-- Insomnia
-- Sublime
-- Dependências para instalação do driver Postgres psycopg
+- Zsh
+- curl
+- Docker
+- Git
+- OhMyZsh
+- VS Code
+- docker-compose
+- Node.js
+- pip
 
-**Referências para instalação de outros softwares**
-- [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
-- [Docker-Compose](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04-pt)
-- Geckodriver. Baixar a última release em https://github.com/mozilla/geckodriver/releases e descompactá-la no diretório `/usr/local/bin`
-
-**Outras configurações**
-- Restaurar chaves ssh para `~/.ssh`
-- Restaurar arquivo da VPN
-- [Adicionar chave ssh no ssh-agent (autenticação via ssh com github, bitbucket, etc)](https://help.github.com/pt/enterprise/2.17/user/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-- Restaurar configurações do vim, sublime, pycharm, dbeaver, postman e insomnia (TODO)
-- Adicionar atalho da tecla "Print screen" para o flameshot
-- Restaurar arquivo `~/.zshrc`
+The theme of the script is based in **Yu-Gi-Oh! GX**, which I'm a fan of!
