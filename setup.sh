@@ -15,7 +15,7 @@ END="\033[0m"
 # }
 # install() {
 #     printf "\n$GREEN$1$END is not installed\nInstalling $GREEN$1$END...\n\n"
-#     # check if istallation was successfull : return 0 or 1
+#     # check if installation was successful : return 0 or 1
 #     printf "\nSuccessfully installed $GREEN$1$END\n"
 #     INSTALLED_APPS+=1
 # }
@@ -60,7 +60,14 @@ echo "Actually I wasn't done yet..."
 sudo apt update -y
 sudo apt upgrade -y
 
-# Mint : setup colors
+# Mint
+# TODO: setup monitor layout, add trash can, background image
+THEME='Mint-Y-Dark'
+gsettings set org.cinnamon.desktop.wm.preferences theme $THEME
+gsettings set org.cinnamon.desktop.interface icon-theme $THEME
+gsettings set org.cinnamon.desktop.interface gtk-theme $THEME
+gsettings set org.cinnamon.desktop.interface cursor-theme 'DMZ-Black'
+gsettings set org.cinnamon.theme name $THEME
 
 # Firefox : setup colors, favorites, ... https://support.mozilla.org/en-US/kb/recovering-important-data-from-an-old-profile
 
@@ -87,6 +94,7 @@ done <~/vscode-setup-folder/extensions.txt
 mv ~/vscode-setup-folder/settings.json ~/.config/Code/User/settings.json
 mv ~/vscode-setup-folder/keybinds.json ~/.config/Code/User/keybinds.json
 rm -rf ~/vscode-setup-folder
+# TODO: add shortcut icon to desktop
 
 sudo curl -L "https://github.com/docker/compose/releases/download/1.28.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose

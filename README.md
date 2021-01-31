@@ -1,6 +1,6 @@
 # Get Your Game On
 
-Script to install and configure my Linux Mint environment.
+Script to install and configure the apps in my Linux Mint environment.
 
 
 
@@ -20,7 +20,7 @@ Script to install and configure my Linux Mint environment.
 - [ ] write motivation behind the script
 - [ ] escrever README em português
 - [ ] write the script in Python and add features
-- [ ] run the script without downloading it previously (like ohmyzsh command)
+- [ ] run the script without downloading it previously (like OhMyZsh command)
 - [ ] make script continue after system reboot
 - [ ] add more softwares: Inkscape, Insomnia...
 
@@ -47,7 +47,7 @@ After this, you can remove the script from your machine.
 
 
 
-## about
+## About
 
 Original work and idea from @csmaniottojr
 
